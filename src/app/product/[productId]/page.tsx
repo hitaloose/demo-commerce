@@ -40,4 +40,4 @@ export default async function Page(props: Props) {
   );
 }
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
