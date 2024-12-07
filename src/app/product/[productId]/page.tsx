@@ -5,11 +5,11 @@ import { formatPrice } from "@/helpers/number";
 import { Form } from "@/app/product/[productId]/components/form";
 
 type Props = {
-  params: Promise<{ productId: string }>;
+  params: { productId: string };
 };
 
 export default async function Page(props: Props) {
-  const params = await props.params;
+  const params = props.params;
   const product = await getProductById(+params.productId);
 
   return (
