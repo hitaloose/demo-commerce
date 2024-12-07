@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   basePath: "/demo-commerce",
   output: "export",
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
