@@ -1,20 +1,12 @@
 import Image from "next/image";
 
-import { getAllProducts, getProductById } from "@/actions/products";
+import { getProductById } from "@/actions/products";
 import { formatPrice } from "@/helpers/number";
 import { Form } from "@/app/product/[productId]/components/form";
 
 type Props = {
   params: Promise<{ productId: string }>;
 };
-
-export async function generateStaticParams() {
-  const products = await getAllProducts();
-
-  return products.map((product) => ({
-    productId: String(product.id),
-  }));
-}
 
 export default async function Page(props: Props) {
   const params = await props.params;
