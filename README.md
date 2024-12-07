@@ -4,6 +4,8 @@
 
 **Demo Commerce** is a modern e-commerce application built with **Next.js** and **TypeScript**, featuring responsive design, dynamic routing, and state management using **Zustand**. It connects to the **FakeStore API** to showcase products, manage categories, and simulate a shopping cart experience.
 
+[Preview](https://hitaloose.github.io/demo-commerce/)
+
 ---
 
 ## Features
