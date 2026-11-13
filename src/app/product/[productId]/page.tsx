@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 import { getAllProducts, getProductById } from "@/actions/products";
 import { formatPrice } from "@/helpers/number";
@@ -19,6 +20,8 @@ export async function generateStaticParams() {
 export default async function Page(props: Props) {
   const params = await props.params;
   const product = await getProductById(+params.productId);
+
+  if (!product) notFound();
 
   return (
     <div className="px-2 h-full flex flex-col justify-between">

@@ -1,159 +1,44 @@
-## README: Demo Commerce
-
 # Demo Commerce
 
-**Demo Commerce** is a modern e-commerce application built with **Next.js** and **TypeScript**, featuring responsive design, dynamic routing, and state management using **Zustand**. It connects to the **FakeStore API** to showcase products, manage categories, and simulate a shopping cart experience.
+A small storefront built with **Next.js 15 (App Router)**, **React 19**, **Tailwind CSS** and **Zustand**: browse products by category, open a product page, and manage a cart with quantities and an order summary.
 
-[Preview](https://demo-commerce-psi.vercel.app/)
-
----
+**[Live demo →](https://demo-commerce-psi.vercel.app/)**
 
 ## Features
 
-- **Dynamic Product Management**: Browse products by categories and view detailed product descriptions.
-- **Responsive Design**: Styled with **Tailwind CSS**, providing a seamless experience across devices.
-- **Shopping Cart**: Add items to the cart, adjust quantities, and view order summaries.
-- **State Management**: Powered by **Zustand** for efficient and reactive global state management.
-- **Server-Side Rendering**: Efficient data fetching and pre-rendering using Next.js's latest capabilities.
+- Category menu driven by the URL (`/?category=jewelery`), rendered on the server
+- Product pages pre-rendered at build time with `generateStaticParams`
+- Cart with quantity picker, per-item and order totals, kept in a Zustand store
+- Mobile-first layout with Tailwind CSS
 
----
-
-## Tech Stack
-
-### Frontend
-
-- **Next.js** (v15.0.4): Framework for server-rendered React applications.
-- **React** (v19.0.0): Library for building user interfaces.
-- **Tailwind CSS** (v3.4.1): Utility-first CSS framework.
-- **Zustand** (v5.0.2): State management library.
-
-### Tools & Utilities
-
-- **TypeScript**: Strict typing for better development experience.
-- **FakeStore API**: Public API for simulating e-commerce data.
-- **React Icons**: Prebuilt icon components for UI enhancements.
-
----
-
-## Project Structure
+## How it is organized
 
 ```
-├── src
-│   ├── actions         # API calls and data-fetching logic
-│   ├── app             # Application routing and layout components
-│   ├── components      # Reusable UI components
-│   ├── entities        # Type definitions for products, categories, and orders
-│   ├── helpers         # Utility functions
-│   ├── stores          # Zustand-based global state management
-│   └── styles          # Global and modular CSS
-├── public              # Static assets
-├── next.config.ts      # Next.js configuration
-├── tailwind.config.ts  # Tailwind CSS configuration
-└── tsconfig.json       # TypeScript configuration
+src/
+├── actions/     data access (products, categories)
+├── app/         routes: /, /product/[productId], /cart
+├── components/  shared UI (Header, MenuCategories, CardProduct, NumberPicker…)
+├── data/        product catalog snapshot
+├── entities/    Product, Category, Order types
+├── helpers/     price formatting
+└── stores/      cart store (Zustand)
 ```
 
----
+Product data comes from [FakeStoreAPI](https://fakestoreapi.com/). The API rejects requests from Vercel's servers, so the catalog and its images are stored in the repo (`src/data/products.json`, `public/products/`) and the actions read from that snapshot. Swapping back to a live API only touches `src/actions`.
 
-## Getting Started
+## Running locally
 
-### Prerequisites
+Requires Node.js 18.18+.
 
-- Node.js >= 16
-- npm or yarn
+```bash
+git clone https://github.com/hitaloose/demo-commerce.git
+cd demo-commerce
+npm install
+npm run dev     # http://localhost:3000
+```
 
-### Installation
-
-1. **Clone the Repository**:
-
-   ```bash
-   git clone https://github.com/your-username/demo-commerce.git
-   cd demo-commerce
-   ```
-
-2. **Install Dependencies**:
-
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. **Run Development Server**:
-
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
-## Scripts
-
-- `npm run dev`: Starts the development server.
-- `npm run build`: Builds the application for production.
-- `npm run start`: Starts the production server.
-- `npm run lint`: Runs ESLint for code linting.
-
----
-
-## Key Components
-
-### `Header`
-
-- Provides navigation with a "Back" button and cart icon.
-- Dynamically displays the number of items in the cart.
-
-### `MenuCategories`
-
-- Fetches and displays categories from the FakeStore API.
-- Enables filtering of products by category.
-
-### `CardProduct`
-
-- Displays individual product details like image, title, and price.
-- Navigates to a detailed product page on click.
-
-### `NumberPicker`
-
-- Allows users to adjust item quantities in the cart.
-
----
-
-## APIs Used
-
-- **FakeStore API**:
-  - `https://fakestoreapi.com/products/categories`: Fetches product categories.
-  - `https://fakestoreapi.com/products/category/:category`: Fetches products by category.
-  - `https://fakestoreapi.com/products/:productId`: Fetches details of a single product.
-
----
-
-## Development Notes
-
-### File Structure
-
-- Components are modular and colocated with related styles and logic.
-- Actions handle API interactions, ensuring separation of concerns.
-
-### State Management
-
-- Zustands efficiently manages the cart state, providing methods to add, remove, and update cart items.
-
----
+`npm run build && npm start` runs the production build; `npm run lint` runs ESLint.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-## Acknowledgments
-
-- [FakeStore API](https://fakestoreapi.com): For providing free e-commerce data.
-- [Next.js](https://nextjs.org): For powering this project with server-rendering capabilities.
-- [Tailwind CSS](https://tailwindcss.com): For modern and responsive styling.
-
-Feel free to contribute or suggest improvements! 🚀
+[MIT](LICENSE)

@@ -1,10 +1,8 @@
-"use server";
-
+import { getAllProducts } from "@/actions/products";
 import { Category } from "@/entities/category";
 
 export const getAllCategories = async () => {
-  const response = await fetch("https://fakestoreapi.com/products/categories");
-  const data = await response.json();
+  const products = await getAllProducts();
 
-  return data as Category[];
+  return [...new Set(products.map((product) => product.category))] as Category[];
 };
